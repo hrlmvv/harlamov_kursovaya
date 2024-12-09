@@ -1,0 +1,75 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}HScience{% endblock %}
+
+{% block content %}
+{% load static %}
+<main class="layout-main">
+    <div class="container">
+        <section class="card-panel">
+            <div class="card-header">
+                <h2>Новости</h2>
+                <a class="show-all" href="/news">Показать все</a>
+            </div>
+            <div class="card-body">
+                <div class="announce-list three-column">
+                    {% for news in latest_news %}
+                        <div class="list-item">
+                            <div class="image">
+                                <a href="{{ news.get_absolute_url }}">
+                                    <img class="lozad" loading="lazy" src="{{ news.image.url }}" alt="{{ news.title }}">
+                                </a>
+                            </div>
+                            <div class="announce">
+                                <div class="props">
+                                    <div class="prop"><img class="icon-calendar" src="{% static 'main/img/icon-calendar.png' %}"/> 
+                                        <time datetime="{{ news.created_at }}">{{ news.created_at|date:"d.m.Y H:i" }}</time>
+                                    </div>
+                                    <div class="prop views pull-right"><img class="icon-eye" src="{% static 'main/img/icon-eye.png' %}"/> {{ news.views }}</div>
+                                </div>
+                                <div class="title">                        
+                                    <a href="{{ news.get_absolute_url }}">{{ news.title }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="card-panel">
+            <div class="card-header">
+                <h2>Статьи</h2>
+                <a class="show-all" href="/articles">Показать все</a>
+            </div>
+            <div class="card-body">
+                <div class="announce-list three-column">
+                    {% for article in latest_articles %}
+                        <div class="list-item">
+                            <div class="image">
+                                <a href="{{ article.get_absolute_url }}">
+                                    <img class="lozad" loading="lazy" src="{{ article.image.url }}" alt="{{ article.title }}">
+                                </a>
+                            </div>
+                            <div class="announce">
+                                <div class="props">
+                                    <div class="prop"><img class="icon-calendar" src="{% static 'main/img/icon-calendar.png' %}"/> 
+                                        <time datetime="{{ article.created_at }}">{{ article.created_at|date:"d.m.Y H:i" }}</time>
+                                    </div>
+                                    <div class="prop views pull-right"><img class="icon-eye" src="{% static 'main/img/icon-eye.png' %}"/> {{ article.views }}</div>
+                                </div>
+                                <div class="title">                        
+                                    <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                                </div>
+                                <div class="lead">
+                                    <p>{{ article.lead }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

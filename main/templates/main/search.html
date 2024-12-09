@@ -1,0 +1,136 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Поиск по сайту{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <main class="layout-main">
+        <div class="container">
+            <section class="card-panel">
+                <div class="card-header d-flex">
+                    <h1>Поиск по сайту</h1>
+                </div>
+                <div class="card-body">
+                    <form class="search-form" method="GET" action="{% url 'search_results' %}">
+                        <div class="form-group">
+                            <label for="search-query" class="form-label">Поисковый запрос</label>
+                            <input type="text" id="search-query" name="q" class="form-input" value="{{ query|default:'' }}" required>
+                        </div>
+                    
+                        <fieldset class="search-options">
+                            <legend class="form-title">Искать</legend>
+                            <label class="search-label">
+                                <input type="radio" name="search" value="any" class="search-radio" 
+                                {% if request.GET.search|default_if_none:"any" == 'any' %}checked{% endif %}> Любое из слов
+                            </label>
+                            <label class="search-label">
+                                <input type="radio" name="search" value="phrase" class="search-radio" 
+                                {% if request.GET.search == 'phrase' %}checked{% endif %}> Фразу целиком
+                            </label>
+                            <label class="search-label">
+                                <input type="radio" name="search" value="all" class="search-radio" 
+                                    {% if request.GET.search == 'all' %}checked{% endif %}> Все слова
+                            </label>
+                        </fieldset>
+                    
+                        <fieldset class="sort-options">
+                            <legend class="form-title">Сортировать результаты</legend>
+                            <label class="sort-label">
+                                <input type="radio" name="sort" value="relevance" class="sort-radio" 
+                                {% if request.GET.sort|default_if_none:"relevance" == 'relevance' %}checked{% endif %}> По релевантности
+                            </label>
+                            <label class="sort-label">
+                                <input type="radio" name="sort" value="date_desc" class="sort-radio" 
+                                    {% if request.GET.sort == 'date_desc' %}checked{% endif %}> По дате (по убыванию)
+                            </label>
+                            <label class="sort-label">
+                                <input type="radio" name="sort" value="date_asc" class="sort-radio" 
+                                    {% if request.GET.sort == 'date_asc' %}checked{% endif %}> По дате (по возрастанию)
+                            </label>
+                        </fieldset>
+                    
+                        <button type="submit" class="submit-btn">Искать</button>
+                    </form>
+
+                    {% if page_obj %}
+                        <div class="announce-list super-wide single-column">
+                            {% for item in page_obj %}
+                            <div class="list-item">
+                                <div class="wrapper">
+                                    <div class="image">
+                                        <a href="{{ item.get_absolute_url }}">
+                                            <img class="lozad" loading="lazy" src="{{ item.image.url }}" alt="{{ item.title }}">
+                                        </a>
+                                    </div>
+                                    <div class="announce">
+                                        <div class="title">
+                                            <a href="{{ item.get_absolute_url }}">
+                                                {{ item.title }}
+                                            </a>
+                                        </div>
+                                        <div class="props">
+                                            <div class="prop time">
+                                                <img class="icon-calendar" src="{% static 'main/img/icon-calendar.png' %}">
+                                                <time datetime="{{ item.created_at }}">{{ item.created_at|date:"d.m.Y H:i" }}</time>
+                                            </div>
+                                            <div class="prop views pull-right">
+                                                <img class="icon-eye" src="{% static 'main/img/icon-eye.png' %}"> {{ item.views }}
+                                            </div>
+                                        </div>
+                                        <div class="lead">
+                                            <p>{{ item.precontent }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="props-wrapper">
+                                    <div class="props props-wide">
+                                        <div class="prop authors">
+                                            <div class="author">
+                                                <img class="icon-user" src="{% static 'main/img/icon-user.png' %}">
+                                                Автор {{ item.author.get_full_name }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="card-footer">
+                            <ul class="pagination justify-content-center flex-wrap">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?q={{ query }}&search={{ request.GET.search }}&sort={{ request.GET.sort }}&page=1">Новое</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?q={{ query }}&search={{ request.GET.search }}&sort={{ request.GET.sort }}&page={{ page_obj.previous_page_number }}">&lt;</a>
+                                    </li>
+                                {% endif %}
+                                
+                                {% for num in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == num %}
+                                        <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?q={{ query }}&search={{ request.GET.search }}&sort={{ request.GET.sort }}&page={{ num }}">{{ num }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+            
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?q={{ query }}&search={{ request.GET.search }}&sort={{ request.GET.sort }}&page={{ page_obj.next_page_number }}">&gt;</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?q={{ query }}&search={{ request.GET.search }}&sort={{ request.GET.sort }}&page={{ page_obj.paginator.num_pages }}">Старое</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% elif search_executed %}
+                        <div class="alert alert-danger">
+                            <p>По запросу ничего не найдено</p>
+                        </div>
+                    {% endif %}                    
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}

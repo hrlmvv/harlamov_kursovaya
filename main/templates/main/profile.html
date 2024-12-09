@@ -1,0 +1,45 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+{% load static %}
+    <main class="layout-main">
+        <div class="container">
+            <section class="card-panel">
+                <div class="card-header d-flex">
+                    <h1>Профиль {{ request.user.username }}</h1>
+                </div>
+                <div class="card-body single-column wide">
+                    <div class="profile-left">
+                        <img src="{{ profile.avatar.url }}" alt="Avatar" class="profile-avatar">
+                    </div>
+                    <div class="profile-right">
+                        <h2>{{ profile.user.get_full_name }}</h2>
+                        <p><strong>Биография:</strong> {{ profile.bio }}</p>
+                        <p><strong>Вебсайт:</strong> <a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a></p>
+                        <p><strong>Дата присоединения:</strong> {{ profile.joined_at|date:"d.m.Y" }}</p>
+                        <a href="{% url 'edit_profile' %}" class="btn-edit">Редактировать</a>
+
+                        <a href="{% url 'logout' %}" class="btn-logout" id="logout-link">Выйти</a>
+                        <form method="post" action="{% url 'logout' %}" id="logout-form" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+
+                        <div class="profile-actions">
+                            <a href="{% url 'create_article' %}" class="btn-create">Создать статью</a>
+                            <a href="{% url 'create_news' %}" class="btn-create">Создать новость</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault(); 
+            document.getElementById('logout-form').submit();
+        });
+    </script>
+{% endblock %}

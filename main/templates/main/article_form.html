@@ -1,0 +1,22 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Добавить статью{% endblock %}
+
+{% block content %}
+<main class="layout-main">
+    <div class="container">
+        <section class="card-panel">
+            <div class="card-header">
+                <h1>Добавить статью</h1>
+            </div>
+            <div class="card-body">
+                <form class="create-form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn-submit">Сохранить статью</button>
+                </form>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

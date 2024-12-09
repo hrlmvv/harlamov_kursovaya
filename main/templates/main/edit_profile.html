@@ -1,0 +1,23 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Редактирование профиля{% endblock %}
+
+{% block content %}
+    <main class="layout-main">
+        <div class="container">
+            <section class="card-panel">
+                <div class="card-header d-flex">
+                    <h1>Редактирование профиля</h1>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" class="create-form">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <button type="submit" class="submit-btn">Сохранить изменения</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}

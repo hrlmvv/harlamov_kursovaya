@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: #c8252b;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+
+      .cls-3 {
+        font-size: 66.666px;
+      }
+
+      .cls-3, .cls-4 {
+        font-family: "Myriad Pro";
+        font-weight: 700;
+      }
+
+      .cls-4 {
+        font-size: 20.833px;
+      }
+    </style>
+  </defs>
+  <image id="Слой_0" data-name="Слой 0" width="32" height="32" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABo0lEQVRYhWL8////IwYGBj6GgQAMDJ8AAAAA//8COeD/AFnOwMDAwAAAAAD//2JiYGD4OGC2MzB8BAAAAP//Ajlg4AADAwMAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xpYBzAwMAAAAAD//xrYzikDAwMAAAD//2JhYGB4PGDdcwaGTwAAAAD//wMAtdAQ3DzctBwAAAAASUVORK5CYII="/>
+  <rect id="Прямоугольник_1" data-name="Прямоугольник 1" class="cls-1" width="32" height="32"/>
+  <path id="Прямоугольник_2" data-name="Прямоугольник 2" class="cls-2" d="M3.333,3.333H28.667V28.667H3.333V3.333Z"/>
+  <text id="Н" class="cls-3" transform="translate(7.856 23.439) scale(0.333)">Н</text>
+  <text id="S" class="cls-4" transform="translate(23.189 11.106) scale(0.333)">S</text>
+</svg>

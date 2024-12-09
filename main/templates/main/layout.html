@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'main/img/favicon.svg' %}" type="image/x-icon">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+</head>
+
+<body>
+    <!-- Хедер -->
+    <header class="layout-header">    
+        <div class="container">
+            <!-- Логотипы -->
+            <div class="logotypes">
+                <a href="/" class="logo">
+                    <img src="{% static 'main/img/logo.jpg' %}" alt="HScience" class="logo-img">
+                </a>
+                <a href="/" class="logo-textual">
+                    <img src="{% static 'main/img/logo-text.jpg' %}" alt="HScience" class="logo-img">
+                </a>
+            </div>
+    
+            <!-- Основное меню -->
+            <nav class="main-menu hidden-md-down">
+                <ul>
+                    <li><a href="/news">Новости</a></li>
+                    <li><a href="/articles">Статьи</a></li>
+                </ul>
+            </nav>
+    
+            <!-- Дополнительное меню -->
+            <nav class="aux-menu">
+                <ul>
+                    <li id="lang">
+                        <div class="dropdown">
+                            <button>RU</button>
+                            <div class="dropdown-content">
+                                <a href="https://hscience.by/">RU</a>
+                                <a href="https://en.hscience.by/">EN</a>
+                            </div>
+                        </div>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <!-- Профиль пользователя -->
+                        <li>
+                            <a href="/profile" title="Профиль">
+                                <!-- Проверка, если аватар существует -->
+                                {% if user.profile.avatar %}
+                                    <img src="{{ user.profile.avatar.url }}" class="icon-user autorised">
+                                {% else %}
+                                    <img src="{% static 'main/img/icon-user.png' %}" class="icon-user">
+                                {% endif %}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li><a href="/login" title="Войти"><img src="{% static 'main/img/icon-user.png' %}" class="icon-user" id="user-icon"></a></li>
+                    {% endif %}
+                    <li><a href="/search" title="Поиск"><img src="{% static 'main/img/icon-search.png' %}" class="icon-search"></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Футер -->
+    <footer class="layout-footer">
+        <div class="container">
+            <!-- Контактная информация -->
+            <div class="footer-section contact-info">
+                <h4>Контактная информация</h4>
+                <p>Адрес: ул. Первомайская, 1, Могилев, Беларусь</p>
+                <p>Телефон: +375 29 123-45-67</p>
+                <p>Email: info@hscience.by</p>
+            </div>
+
+            <!-- Социальные сети -->
+            <div class="footer-section social-media">
+                <h4>Мы в социальных сетях</h4>
+                <a href="#"><img src="{% static 'main/img/icon-telegram.png' %}" alt="Telegram" class="icon-social"></a>
+                <a href="#"><img src="{% static 'main/img/icon-vk.png' %}" alt="VK" class="icon-social"></a>
+                <a href="#"><img src="{% static 'main/img/icon-instagram.png' %}" alt="Instagram" class="icon-social"></a>
+            </div>
+
+            <!-- Копирайт -->
+            <div class="footer-section copyright">
+                <p>&copy; 2024 HScience. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'main/js/icons.js' %}"></script>
+</body>
+</html>

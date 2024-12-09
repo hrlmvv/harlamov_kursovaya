@@ -1,0 +1,45 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <main class="layout-main">
+        <div class="container">
+            <article class="article" itemscope="" itemtype="https://schema.org/Article" data-id="{{ article.id }}">
+                <h1 itemprop="name headline">{{ article.title }}</h1>
+                <div class="props">
+                    <div class="prop time">
+                        <img class="icon-calendar" src="{% static 'main/img/icon-calendar.png' %}">
+                        <time datetime="{{ article.created_at|date:"Y-m-d H:i" }}">{{ article.created_at|date:"d.m.Y H:i" }}</time>
+                    </div>
+                    <div class="prop views pull-right">
+                        <img class="icon-eye" src="{% static 'main/img/icon-eye.png' %}">
+                        <img class="icon-calendar" src="{% static 'main/img/icon-user.png' %}">
+                        Автор {{ article.author.get_full_name }}
+                    </div>
+                </div>
+                <div class="article-text">
+                    {% if article.image %}
+                        <figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject" class="responsive-image align-left">
+                            <div class="figure-content">
+                                <a href="{{ article.image.url }}" itemprop="url contentUrl">
+                                    <img itemprop="thumbnail thumbnailUrl" alt="{{ article.image.alt_text }}" src="{{ article.image.url }}">
+                                </a>
+                                <meta itemprop="name" content="{{ article.image.name }}">
+                                <meta itemprop="width" content="{{ article.image.width }}">
+                                <meta itemprop="height" content="{{ article.image.height }}">
+                            </div>
+                        </figure>
+                    {% endif %}
+                    <div class="article-body" itemprop="articleBody">
+                        <p style="text-align: justify;">
+                            <strong>{{ article.precontent|safe }}</strong>
+                        </p>
+                        {{ article.content|linebreaks }}
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+{% endblock %}

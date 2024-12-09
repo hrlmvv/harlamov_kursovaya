@@ -1,0 +1,45 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <main class="layout-main">
+        <div class="container">
+            <article class="article" itemscope="" itemtype="https://schema.org/NewsArticle" data-id="{{ news.id }}">
+                <h1 itemprop="name headline">{{ news.title }}</h1>
+                <div class="props">
+                    <div class="prop time">
+                        <img class="icon-calendar" src="{% static 'main/img/icon-calendar.png' %}">
+                        <time datetime="{{ news.created_at|date:"Y-m-d H:i" }}">{{ news.created_at|date:"d.m.Y H:i" }}</time>
+                    </div>
+                    <div class="prop views pull-right">
+                        <img class="icon-eye" src="{% static 'main/img/icon-eye.png' %}">
+                        <img class="icon-calendar" src="{% static 'main/img/icon-user.png' %}">
+                        Автор {{ news.author.get_full_name }}
+                    </div>
+                </div>
+                <div class="article-text">
+                    {% if news.image %}
+                        <figure itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject" class="responsive-image align-left">
+                            <div class="figure-content">
+                                <a href="{{ news.image.url }}" itemprop="url contentUrl">
+                                    <img itemprop="thumbnail thumbnailUrl" alt="{{ news.image.alt_text }}" src="{{ news.image.url }}">
+                                </a>
+                                <meta itemprop="name" content="{{ news.image.name }}">
+                                <meta itemprop="width" content="{{ news.image.width }}">
+                                <meta itemprop="height" content="{{ news.image.height }}">
+                            </div>
+                        </figure>
+                    {% endif %}
+                    <div class="news-body" itemprop="articleBody">
+                        <p style="text-align: justify;">
+                            <strong>{{ news.precontent|safe }}</strong>
+                        </p>
+                        {{ news.content|linebreaks }}
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+{% endblock %}
